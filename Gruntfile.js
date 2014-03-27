@@ -47,13 +47,13 @@ module.exports = function (grunt) {
                 files: ['Gruntfile.js']
             },
             compass: {
-                files: ['<%= config.app %>/styles/**/*.{scss,sass}'],
+                files: ['<%= config.app %>/sass/**/*.{scss,sass}'],
                 tasks: ['compass:server', 'autoprefixer']
             },
-            styles: {
-                files: ['<%= config.app %>/styles/**/*.css'],
-                tasks: ['newer:copy:styles', 'autoprefixer']
-            },
+            // styles: {
+            //     files: ['<%= config.app %>/styles/**/*.css'],
+            //     tasks: ['newer:copy:styles', 'autoprefixer']
+            // },
 
             html: {
                 files: [
@@ -62,6 +62,9 @@ module.exports = function (grunt) {
                     '<%= config.app %>/**/*.php',
                     '<%= config.app %>/images/**/*'
                 ],
+                // copying the css files from the .tmp dir into the app/styles dir so the assets folders are correct when viewing
+                // the app folder in a browser
+                tasks: ['newer:copy:stylesback',],
                 options: {
                     livereload: true,
                 }
@@ -100,7 +103,7 @@ module.exports = function (grunt) {
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
             options: {
-                sassDir: '<%= config.app %>/styles',
+                sassDir: '<%= config.app %>/sass',
                 cssDir: '.tmp/styles',
                 generatedImagesDir: '.tmp/images/generated',
                 imagesDir: '<%= config.app %>/images',
@@ -280,8 +283,7 @@ module.exports = function (grunt) {
                         '**/*.html',
                         '**/*.php',
                         'styles/fonts/**/*.*',
-                        '!bc/modernizr/**'
-                        //'bc/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'
+                        '!bc/**/*.*'
                     ]
                 }]
             },
@@ -290,6 +292,13 @@ module.exports = function (grunt) {
                 dot: true,
                 cwd: '<%= config.app %>/styles',
                 dest: '.tmp/styles/',
+                src: '**/*.css'
+            },
+            stylesback: {
+                expand: true,
+                dot: true,
+                cwd: '.tmp/styles/',
+                dest: '<%= config.app %>/styles',
                 src: '**/*.css'
             },
             // copy the dist/scripts/vendor/modernizr.js file to app
