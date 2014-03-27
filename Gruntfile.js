@@ -120,7 +120,7 @@ module.exports = function (grunt) {
             },
             server: {
                 options: {
-                    debugInfo: true
+                    debugInfo: false
                 }
             }
         },
@@ -291,42 +291,58 @@ module.exports = function (grunt) {
                 cwd: '<%= config.app %>/styles',
                 dest: '.tmp/styles/',
                 src: '**/*.css'
-            }
+            },
+            // copy the dist/scripts/vendor/modernizr.js file to app
+            mdnzrcopy: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= config.dist %>',
+                    dest: '<%= config.app %>',
+                    src: [
+                        'scripts/vendor/modernizr.js'
+                    ]
+                }]
+            },
         },
 
         // Generates a custom Modernizr build that includes only the tests you
         // reference in your app
         modernizr: {
-            devFile: '<%= config.app %>/bc/modernizr/modernizr.js',
-            outputFile: '<%= config.dist %>/scripts/vendor/modernizr.js',
-            files: [
-                '<%= config.dist %>/scripts/**/*.js',
-                '<%= config.dist %>/styles/**/*.css',
-                '!<%= config.dist %>/scripts/vendor/*'
-            ],
-            uglify: true
-        },
+                devFile: '<%= config.app %>/bc/modernizr/modernizr.js',
+                outputFile: '<%= config.dist %>/scripts/vendor/modernizr.js',
+                files: [
+                    '<%= config.dist %>/scripts/**/*.js',
+                    '<%= config.dist %>/styles/**/*.css',
+                    '!<%= config.dist %>/scripts/vendor/*'
+                ],
+                extra : {
+                    shiv : false,
+                    printshiv : false,
+                    load : true,
+                    mq : false,
+                    cssclasses : true
+                },
+                uglify: true
+            },
 
-
-
-
-        // Run some tasks in parallel to speed up build process
-        concurrent: {
-            server: [
-                'compass:server',
-                'copy:styles'
-            ],
-            test: [
-                'copy:styles'
-            ],
-            dist: [
-                'compass',
-                'copy:styles',
-                'imagemin',
-                'svgmin'
-            ]
-        }
-    });
+            // Run some tasks in parallel to speed up build process
+            concurrent: {
+                server: [
+                    'compass:server',
+                    'copy:styles'
+                ],
+                test: [
+                    'copy:styles'
+                ],
+                dist: [
+                    'compass',
+                    'copy:styles',
+                    'imagemin',
+                    'svgmin'
+                ]
+            }
+        });
 
 
     grunt.registerTask('serve', function (target) {
@@ -369,6 +385,7 @@ module.exports = function (grunt) {
         'uglify',
         'copy:dist',
         'modernizr',
+        'copy:mdnzrcopy',
         'rev',
         'usemin',
         'htmlmin'
