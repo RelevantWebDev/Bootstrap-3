@@ -1,15 +1,12 @@
-// Generated on 2014-03-26 using generator-webapp 0.4.8
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
+// -------------------- NOTES
 
+// -------------------- add App folder as a virtual directory to a website on local IIS webserver
 
-// this Grunt file uses /**/* everywhere 
-// it's also pointing at app/bc instead of app/bower_components (default)
+// -------------------- use browser extensions for live reload (so we can run server-side code)
+//      Chrome: bit.ly/IKI2MY
+//      Firefox: mzl.la/1hnJqof
 
 module.exports = function (grunt) {
 
@@ -57,50 +54,16 @@ module.exports = function (grunt) {
                 files: ['<%= config.app %>/styles/**/*.css'],
                 tasks: ['newer:copy:styles', 'autoprefixer']
             },
-            livereload: {
-                options: {
-                    livereload: '<%= connect.options.livereload %>'
-                },
+
+            html: {
                 files: [
                     '<%= config.app %>/**/*.html',
                     '.tmp/styles/**/*.css',
+                    '<%= config.app %>/**/*.php',
                     '<%= config.app %>/images/**/*'
-                ]
-            }
-        },
-
-        // The actual grunt server settings
-        connect: {
-            options: {
-                port: 9000,
-                livereload: 35729,
-                // Change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
-            },
-            livereload: {
+                ],
                 options: {
-                    open: true,
-                    base: [
-                        '.tmp',
-                        '<%= config.app %>'
-                    ]
-                }
-            },
-            test: {
-                options: {
-                    port: 9001,
-                    base: [
-                        '.tmp',
-                        'test',
-                        '<%= config.app %>'
-                    ]
-                }
-            },
-            dist: {
-                options: {
-                    open: true,
-                    base: '<%= config.dist %>',
-                    livereload: false
+                    livereload: true,
                 }
             }
         },
@@ -134,16 +97,6 @@ module.exports = function (grunt) {
             ]
         },
 
-        // Mocha testing framework configuration options
-        // mocha: {
-        //     all: {
-        //         options: {
-        //             run: true,
-        //             urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-        //         }
-        //     }
-        // },
-
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
             options: {
@@ -175,7 +128,7 @@ module.exports = function (grunt) {
         // Add vendor prefixed styles
         autoprefixer: {
             options: {
-                browsers: ['last 1 version']
+                browsers: ['last 2 versions']
             },
             dist: {
                 files: [{
@@ -205,7 +158,7 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     src: [
-                        '<%= config.dist %>/scripts/**/*.js',
+                        '<%= config.dist %>/scripts/*.js',
                         '<%= config.dist %>/styles/**/*.css',
                         //'<%= config.dist %>/images/**/*.*',
                         '<%= config.dist %>/styles/fonts/**/*.*',
@@ -232,7 +185,7 @@ module.exports = function (grunt) {
             options: {
                 assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
             },
-            html: ['<%= config.dist %>/**/*.html'],
+            html: ['<%= config.dist %>/**/*.html','<%= config.dist %>/**/*.php'],
             css: ['<%= config.dist %>/styles/**/*.css']
         },
 
@@ -240,6 +193,7 @@ module.exports = function (grunt) {
         imagemin: {
             // added by mjl to elimate build error regarding image files
             options: { cache: false },
+            // end mjl
             dist: {
                 files: [{
                     expand: true,
@@ -285,28 +239,31 @@ module.exports = function (grunt) {
         // By default, your `index.html`'s <!-- Usemin block --> will take care of
         // minification. These next options are pre-configured if you do not wish
         // to use the Usemin blocks.
-        // cssmin: {
-        //     dist: {
-        //         files: {
-        //             '<%= config.dist %>/styles/main.css': [
-        //                 '.tmp/styles/{,*/}*.css',
-        //                 '<%= config.app %>/styles/{,*/}*.css'
-        //             ]
-        //         }
-        //     }
-        // },
-        // uglify: {
-        //     dist: {
-        //         files: {
-        //             '<%= config.dist %>/scripts/scripts.js': [
-        //                 '<%= config.dist %>/scripts/scripts.js'
-        //             ]
-        //         }
-        //     }
-        // },
-        // concat: {
-        //     dist: {}
-        // },
+        cssmin: {
+            dist: {
+                files: {
+                    '<%= config.dist %>/styles/main.css': [
+                        '.tmp/styles/**/*.css',
+                        '<%= config.app %>/styles/**/*.css'
+                    ]
+                }
+            }
+        },
+        uglify: {
+            dist: {
+                files: {
+                    '<%= config.dist %>/scripts/scripts.js': [
+                        '<%= config.dist %>/scripts/scripts.js'
+                    ]
+                }
+            }
+        },
+        concat: {
+            dist: {}
+        },
+
+
+
 
         // Copies remaining files to places other tasks can use
         copy: {
@@ -320,12 +277,11 @@ module.exports = function (grunt) {
                         '**/*.{ico,png,txt}',
                         '.htaccess',
                         'images/**/*.webp',
-                        //'{,*/}*.html',
                         '**/*.html',
                         '**/*.php',
                         'styles/fonts/**/*.*',
-                        //'BOOGERS/*.*',
-                        'bc/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'
+                        '!bc/modernizr/**'
+                        //'bc/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'
                     ]
                 }]
             },
@@ -351,6 +307,9 @@ module.exports = function (grunt) {
             uglify: true
         },
 
+
+
+
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
@@ -372,14 +331,15 @@ module.exports = function (grunt) {
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
+            // return grunt.task.run(['build', 'connect:dist:keepalive']);
+            return grunt.task.run(['build']);
         }
 
         grunt.task.run([
             'clean:server',
             'concurrent:server',
             'autoprefixer',
-            'connect:livereload',
+            //'connect:livereload',
             'watch'
         ]);
     });
@@ -397,11 +357,6 @@ module.exports = function (grunt) {
                 'autoprefixer'
             ]);
         }
-
-        // grunt.task.run([
-        //     'connect:test',
-        //     'mocha'
-        // ]);
     });
 
     grunt.registerTask('build', [

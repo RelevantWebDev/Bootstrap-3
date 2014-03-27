@@ -11,7 +11,6 @@
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="stylesheet" href="styles/main.css">
         <script src="scripts/vendor/modernizr.js"></script>
-
        <style>
 
             div[class*='col-'] {
