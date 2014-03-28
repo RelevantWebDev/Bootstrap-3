@@ -5,11 +5,16 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>BOOTSTRAP 3 - TRY</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="stylesheet" href="styles/main.css">
+	    <!--[if lt IE 9]>
+	    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->        
         <script src="scripts/vendor/modernizr.js"></script>
 
        <style>
@@ -28,23 +33,24 @@
             <p class="browsehappy">You are using an <strong>extremely outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        
+        test
         <div class="container">
 
-<ul class="nav nav-tabs"> 
-  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-  <li><a href="#profile" data-toggle="tab">Profile</a></li>
-  <li><a href="#messages" data-toggle="tab">Messages</a></li>
-  <li><a href="#settings" data-toggle="tab">Settings</a></li>
-</ul>
+			<ul class="nav nav-tabs"> 
+			  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+			  <li><a href="#profile" data-toggle="tab">Profile</a></li>
+			  <li><a href="#messages" data-toggle="tab">Messages</a></li>
+			  <li><a href="#settings" data-toggle="tab">Settings</a></li>
+			</ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" id="home">..HOME..</div>
-  <div class="tab-pane" id="profile">..PROFILE..</div>
-  <div class="tab-pane" id="messages">..MESSAGES..</div>
-  <div class="tab-pane" id="settings">..SETTINGS..</div>
-</div>        
+			<!-- Tab panes -->
+			<div class="tab-content">
+			  <div class="tab-pane active" id="home">..HOME..</div>
+			  <div class="tab-pane" id="profile">..PROFILE..</div>
+			  <div class="tab-pane" id="messages">..MESSAGES..</div>
+			  <div class="tab-pane" id="settings">..SETTINGS..</div>
+			</div>     
+
              <div class="row">
                 <div class="col-xs-12">
                     <h1 class="visible-xs">ONLY ON XS</h1>
@@ -96,9 +102,7 @@
             </div> 
         </div>
         
-        <!-- build:js scripts/jquery.js -->
-        <script src="bc/jquery/dist/jquery.js"></script>
-        <!-- endbuild -->
+
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!-- 
@@ -112,7 +116,8 @@
         // </script>
         -->
 
-        <!-- build:js scripts/plugins.js -->
+        <!-- build:js scripts/scripts.js -->
+        <script src="bc/jquery/dist/jquery.js"></script>
         <script src="bc/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
         <script src="bc/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
         <script src="bc/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
