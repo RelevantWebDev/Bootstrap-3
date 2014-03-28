@@ -5,12 +5,18 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>BOOTSTRAP 3 - IS COOLER THAN YOU</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>BOOTSTRAP 3 - TRY</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="stylesheet" href="styles/main.css">
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->        
         <script src="scripts/vendor/modernizr.js"></script>
+
        <style>
 
             div[class*='col-'] {
@@ -22,67 +28,26 @@
         </style>        
 
     </head>
-    <body>
+    <body id="home">
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>extremely outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+        <section class="container">
+          <div class="content row">
+            <?php include "includes/header.php"; ?>
+            <section class="main col col-lg-8">
+
+            </section>
+            <aside class="sidebar col col-lg-4">
+
+            </aside>        
+          </div>
+          <?php include "includes/footer.php"; ?>
+        </section> 
         
-        <div class="container">
-             <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="visible-xs">ONLY ON XS</h1>
-                    ----
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-6 col-lg-4">
-                    <h1 class="hidden-sm">Only hidden on SM</h1>
-                    ---
-                </div>
-                <div class="col-xs-6 col-lg-8">
-                    ---
-                </div>          
-            </div>
-
-             <!-- Nested columns with inhertance behavior -->
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-xs-4">---</div>
-                        <div class="col-xs-8">---</div>
-                    </div>
-                </div>
-
-
-
-                <!-- Swap places at medium 
-                        SM and XS do NOT ALLOW push and pulls... smallest available is at the medium screen
-                -->
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-xs-4 col-md-push-8">---</div>
-                        <div class="col-xs-8 col-md-pull-4">---</div>
-                    </div>
-                </div>          
-            </div>
-
-
-            <div class="row">
-                <div class="col-sm-4">---</div>
-                <div class="col-sm-4">---</div>
-                <div class="col-sm-4">---</div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">---</div>
-            </div> 
-        </div>
         
-        <!-- build:js scripts/jquery.js -->
-        <script src="bc/jquery/dist/jquery.js"></script>
-        <!-- endbuild -->
+
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!-- 
@@ -96,7 +61,8 @@
         // </script>
         -->
 
-        <!-- build:js scripts/plugins.js -->
+        <!-- build:js scripts/scripts.js -->
+        <script src="bc/jquery/dist/jquery.js"></script>
         <script src="bc/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
         <script src="bc/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
         <script src="bc/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>

@@ -118,7 +118,8 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    generatedImagesDir: '<%= config.dist %>/images/generated'
+                    generatedImagesDir: '<%= config.dist %>/images/generated',
+                    noLineComments: true
                 }
             },
             server: {
