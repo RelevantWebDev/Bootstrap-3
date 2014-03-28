@@ -86,6 +86,17 @@ module.exports = function (grunt) {
             server: '.tmp'
         },
 
+        svg2png: {
+            all: {
+                // specify files in array format with multiple src-dest mapping
+                files: [
+                    // rasterize all SVG files in "img" and its subdirectories to "img/png"
+                    { src: ['<%= config.app %>/images/**/*.svg'], dest: '<%= config.app %>/images/' },
+                    // rasterize SVG file to same directory
+                    // { src: ['img/logo.svg'] }
+                ]
+            }
+        },
         // Make sure code styles are up to par and there are no obvious mistakes
         jshint: {
             options: {
@@ -364,6 +375,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'concurrent:server',
+            'svg2png',
             'autoprefixer',
             //'connect:livereload',
             'watch'
@@ -388,6 +400,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'useminPrepare',
+        'svg2png',
         'concurrent:dist',
         'autoprefixer',
         'concat',
